@@ -8,7 +8,7 @@ zur Loesung des Turm Problems
 """
 
 
-def erzeuge_individuum(n):
+def erzeuge_individuum(n, choice_func = np.random.choice):
     """
     erzeuge ein Individuum
     bestehend aus einem boolean array der shape (n,n)
@@ -16,11 +16,10 @@ def erzeuge_individuum(n):
     :param n:
     :return: individuum
     """
-    if n < 2:
-        n = 2
 
     board = np.zeros((n, n), dtype=int)
-    rand_inds = np.random.choice(np.arange(n**2), size=n, replace=False)
+    #rand_inds = np.random.choice(np.arange(n**2), size=n, replace=False)
+    rand_inds = choice_func(np.arange(n ** 2), size=n, replace=False)
     board.flat[rand_inds] = 1
     return board
 
