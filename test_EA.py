@@ -1,3 +1,4 @@
+import numpy as np
 from EA import *
 
 def choice_func(x, size, replace):
@@ -8,4 +9,12 @@ def test_inid():
         board = erzeuge_individuum(n, choice_func)
         assert len(board.flat) == n**2
 
+def test_mutate():
+    board = np.zeros((3, 3))
+    original = board
+    mutiere_individuum(board)
+
+    assert board == original
+
 test_inid()
+test_mutate()
