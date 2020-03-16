@@ -1,3 +1,4 @@
+import numpy as np
 from EA import *
 size = 10
 
@@ -10,4 +11,4 @@ value = berechne_fitness(board)
 
 print(type(value))
 
-assert type(value) is float
+assert type(value) is np.float64
