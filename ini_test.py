@@ -10,4 +10,4 @@ value = berechne_fitness(board)
 
 print(type(value))
 
-assert type(value) == "<class 'numpy.float64'>"
+assert type(value) is float
