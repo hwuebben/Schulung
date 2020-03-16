@@ -11,7 +11,8 @@ def test_erzeuge_individuum():
 
 def test_berechne_fitness():
     for n in range(1,10):
-        xn = berechne_fitness(erzeuge_individuum(n))
+        an = np.random.randint(0,2, (n,n))
+        xn = berechne_fitness(an)
         assert xn >= 0. 
         assert xn <= 1.
         assert xn.dtype == np.float
