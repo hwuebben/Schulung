@@ -8,7 +8,7 @@ zur Loesung des Turm Problems
 """
 
 
-def erzeuge_individuum(n):
+def erzeuge_individuum(n, inj_func = np.random.choice):
     """
     erzeuge ein Individuum
     bestehend aus einem boolean array der shape (n,n)
@@ -17,7 +17,7 @@ def erzeuge_individuum(n):
     :return: individuum
     """
     board = np.zeros((n, n), dtype=int)
-    rand_inds = np.random.choice(np.arange(n**2), size=n, replace=False)
+    rand_inds = inj_func(np.arange(n**2), size=n, replace=False)
     board.flat[rand_inds] = 1
     return board
 
@@ -34,7 +34,7 @@ def berechne_fitness(ind):
     return 1 / (np.var(zeilen_summen) + np.var(spalten_summen) + 1)
 
 
-def mutiere_individuum(ind):
+def mutiere_individuum(ind, depinj = np.random.choice):
     """
     mutiere (leichte Veraenderung) ein gegebenes individuum
     :param choice_func:
@@ -43,9 +43,9 @@ def mutiere_individuum(ind):
     besetzt = np.flatnonzero(ind)
     frei = np.flatnonzero(ind == 0)
 
-    rand_queen_index = np.random.choice(besetzt)
+    rand_queen_index = depinj(besetzt)
 
-    rand_free_index = np.random.choice(frei)
+    rand_free_index = depinj(frei)
 
     ind.flat[rand_free_index] = 1
     ind.flat[rand_queen_index] = 0
