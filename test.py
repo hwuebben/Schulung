@@ -1,1 +1,3 @@
-print("Hello World!!!!!1111einself")
+
+def perform_operation(x):
+    return 1 / x
