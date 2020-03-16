@@ -5,4 +5,4 @@ board = EA.erzeuge_individuum(size)
 assert len(board.flat) == size**2
 
 assert EA.berechne_fitness(board) > 0
-assert type(EA.berechne_fitness(board)) == 'float'
+assert type(EA.berechne_fitness(board)) == 'numpy.float64'
