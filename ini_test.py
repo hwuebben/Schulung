@@ -1,8 +1,8 @@
-import EA
+from EA import *
 size = 10
 
-board = EA.erzeuge_individuum(size)
+board = erzeuge_individuum(size)
 assert len(board.flat) == size**2
 
-assert EA.berechne_fitness(board) > 0
-assert type(EA.berechne_fitness(board)) == 'numpy.float64'
+assert berechne_fitness(board) > 0
+assert type(berechne_fitness(board)) == 'numpy.float64'
