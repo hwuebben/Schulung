@@ -165,10 +165,15 @@ def erzeuge_neue_generation(pop, pop_fit):
 
 if __name__ == "__main__":
     "initialisiere Parameter"
-    pop_size = int(sys.argv[1])
-    problem_size = int(sys.argv[2])
-    max_gen = int(sys.argv[3])
 
+    try:
+        pop_size = int(sys.argv[1])
+        problem_size = int(sys.argv[2])
+        max_gen = int(sys.argv[3])
+    except:
+        pop_size = 100
+        problem_size = 6
+        max_gen = 1000
     "erzeuge initiale Population"
     pop = erzeuge_pop(pop_size, problem_size)
     pop_fit = berechne_pop_fitness(pop)
