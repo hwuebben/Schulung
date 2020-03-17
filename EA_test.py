@@ -23,7 +23,7 @@ def test_berechne_fitness():
 
 
 def test_mutiere_individuum():
-
+    # Arrange
     eins = [0, 1, 0]
     zwei = [1, 1, 1]
     drei = [0, 1, 1]
@@ -35,6 +35,7 @@ def test_mutiere_individuum():
     size = np.size(ind)
     def choicefunc(x, size, replace):  # depend injection
         return x[0:size]
+    # Act
     mutiere_individuum(ind)
-
+    # Assert
     assert np.any(ind == indc)
