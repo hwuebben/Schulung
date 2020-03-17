@@ -134,6 +134,15 @@ def berechne_pop_fitness(pop):
     return pop_fit
 
 
+def rekomb(parms):
+    pop, pop_fit = parms
+    ind_0, ind_1 = selektiere_rekombination(pop, pop_fit)
+    new_ind = rekombiniere(ind_0, ind_1)
+    mutiere_individuum(new_ind)
+    return new_ind
+
+import concurrent.futures
+
 def erzeuge_neue_generation(pop, pop_fit):
     """
     erzeuge naechste Population/Generation aus der aktuellen
@@ -143,11 +152,13 @@ def erzeuge_neue_generation(pop, pop_fit):
     """
     """erzeuge neue Individuen"""
     new_pop = []
-    for _ in range(pop_size):
-        ind_0, ind_1 = selektiere_rekombination(pop, pop_fit)
-        new_ind = rekombiniere(ind_0, ind_1)
-        mutiere_individuum(new_ind)
-        new_pop.append(new_ind)
+
+    with concurrent.futures.ProcessPoolExecutor(max_workers=1) as executor:
+        inp = [(pop, pop_fit) for _ in range(pop_size)]
+        new_pop = list(executor.map(rekomb, inp))
+        # for future in concurrent.futures.as_completed(processes):
+        #     new_pop.append(future.result())
+
 
     """ waehle die besten Individuen aus pop und new pop fuer die naechste Generation aus"""
     new_pop_fit = berechne_pop_fitness(new_pop)
@@ -163,11 +174,14 @@ def erzeuge_neue_generation(pop, pop_fit):
     #     pop_fit.append(fit_combine[i])
     return final_pop, final_pop_fit
 
+import time
+
 if __name__ == "__main__":
     "initialisiere Parameter"
     pop_size = int(sys.argv[1])
     problem_size = int(sys.argv[2])
     max_gen = int(sys.argv[3])
+    starttime=time.time()
 
     "erzeuge initiale Population"
     pop = erzeuge_pop(pop_size, problem_size)
@@ -188,3 +202,5 @@ if __name__ == "__main__":
     print("Generationen Schleife beendet")
     print("beste Fitness: ", pop_fit[best_index])
     print("bestes Individuum:\n", pop[best_index])
+
+    print("Dauer: ", time.time()-starttime)
